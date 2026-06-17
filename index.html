@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Learning - Scenic Tropical Beach</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <!-- FontAwesome untuk Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        ocean: {
+                            50: '#f0fbfb',
+                            100: '#dcf4f5',
+                            400: '#2ec4b6',
+                            500: '#0f9f90',
+                            800: '#0b3c37',
+                            900: '#072421',
+                            950: '#031110',
+                        },
+                        sand: {
+                            100: '#fcf8f2',
+                            300: '#f4e3cd',
+                            500: '#e1ad71',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Desain Scrollbar Kustom */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(7, 36, 33, 0.5);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(46, 196, 182, 0.4);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(46, 196, 182, 0.7);
+        }
+        /* Efek Denyut Live */
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.92); }
+        }
+        .pulse-live {
+            animation: pulse-soft 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-ocean-950 font-sans text-slate-200 min-h-screen flex items-center justify-center p-4 overflow-x-hidden selection:bg-ocean-400 selection:text-ocean-950">
+    
+    <!-- Latar Belakang Dekorasi Tropis -->
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[45%] h-[45%] rounded-full bg-ocean-400/10 blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-sand-500/5 blur-[150px]"></div>
+        <div class="absolute top-[30%] right-[20%] w-[30%] h-[30%] rounded-full bg-ocean-500/5 blur-[100px]"></div>
+    </div>
+
+    <!-- Container Utama Mockup 16:9 Widescreen -->
+    <!-- Dikunci dengan aspek rasio 16:9 untuk presentasi visual desktop yang optimal -->
+    <div class="relative z-10 w-full max-w-[1280px] h-[720px] bg-ocean-900/80 backdrop-blur-md rounded-2xl border border-ocean-400/20 shadow-2xl flex flex-col overflow-hidden">
+        
+        <!-- HEADER MEDIA PEMBELAJARAN -->
+        <header class="h-16 border-b border-ocean-400/20 px-6 flex items-center justify-between bg-ocean-950/60 z-10">
+            <div class="flex items-center space-x-3">
+                <div class="bg-gradient-to-tr from-ocean-400 to-sand-500 p-2 rounded-lg text-ocean-950">
+                    <i class="fa-solid fa-umbrella-beach text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-bold text-sand-500 tracking-wider uppercase block">Bahasa Inggris • Descriptive Text</span>
+                    <h1 class="text-base font-extrabold text-white tracking-wide">SCENIC TROPICAL BEACH INTERACTIVE</h1>
+                </div>
+            </div>
+            
+            <!-- Identitas Penyusun -->
+            <div class="flex items-center space-x-4">
+                <div class="text-right border-r border-ocean-400/20 pr-4">
+                    <p class="text-xs text-slate-400 leading-tight">Penyusun</p>
+                    <p class="text-sm font-semibold text-slate-100 leading-normal">Yuli Nuranawati, S.Pd.</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-ocean-400 to-ocean-800 flex items-center justify-center font-bold text-xs text-white shadow-md">
+                        YN
+                    </div>
+                    <span class="text-xs font-medium text-ocean-400 bg-ocean-400/10 px-2 py-1 rounded">SMAN 1 Mempawah Hilir</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- LAYOUT UTAMA: SISI KIRI (42% KONTEN) & SISI KANAN (58% SIMULASI AR) -->
+        <main class="flex-1 flex overflow-hidden">
+            
+            <!-- SISI KIRI: PANEL NAVIGASI & KONTEN INTERAKTIF (42%) -->
+            <section class="w-[42%] border-r border-ocean-400/20 flex flex-col bg-ocean-950/20 relative z-10">
+                
+                <!-- Tab Menu (Sesuai Referensi Gambar) -->
+                <div class="p-4 grid grid-cols-3 gap-2 bg-ocean-950/40 border-b border-ocean-400/10">
+                    <button id="btn-tujuan" onclick="switchTab('tujuan')" class="tab-btn py-2 px-3 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition duration-300 bg-ocean-400 text-ocean-950 shadow-lg shadow-ocean-400/10">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Tujuan</span>
+                    </button>
+                    <button id="btn-materi" onclick="switchTab('materi')" class="tab-btn py-2 px-3 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition duration-300 text-slate-400 hover:text-white hover:bg-ocean-800/40">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Materi</span>
+                    </button>
+                    <button id="btn-evaluasi" onclick="switchTab('evaluasi')" class="tab-btn py-2 px-3 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition duration-300 text-slate-400 hover:text-white hover:bg-ocean-800/40">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Evaluasi (10)</span>
+                    </button>
+                </div>
+
+                <!-- Konten Container (Scrollable) -->
+                <div class="flex-1 p-5 overflow-y-auto relative">
+                    
+                    <!-- KONTEN 1: TUJUAN PEMBELAJARAN (TP) -->
+                    <div id="content-tujuan" class="tab-content block space-y-4">
+                        <div class="flex items-center space-x-3 text-sand-500 mb-2">
+                            <i class="fa-solid fa-compass text-2xl"></i>
+                            <h2 class="text-lg font-bold">Tujuan Pembelajaran (TP)</h2>
+                        </div>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            Melalui demonstrasi interaktif menggunakan mockup pembelajaran 3D, peserta didik Fase E kelas X SMA diharapkan mampu:
+                        </p>
+                        <div class="space-y-3 pt-2">
+                            <div class="flex gap-3 bg-ocean-900/40 p-3 rounded-lg border border-ocean-400/10">
+                                <span class="font-bold text-ocean-400 text-base">1</span>
+                                <p class="text-sm text-slate-300 leading-relaxed">Mengidentifikasi fungsi sosial, struktur teks, dan unsur kebahasaan pada teks deskriptif lisan dan tulis terkait tempat wisata <span class="text-sand-500 italic font-semibold">(Scenic Tropical Beach)</span> secara akurat.</p>
+                            </div>
+                            <div class="flex gap-3 bg-ocean-900/40 p-3 rounded-lg border border-ocean-400/10">
+                                <span class="font-bold text-ocean-400 text-base">2</span>
+                                <p class="text-sm text-slate-300 leading-relaxed">Menganalisis penggunaan <span class="text-ocean-400 underline decoration-dotted">Noun Phrases</span> dan <span class="text-ocean-400 underline decoration-dotted">Adjectives</span> dalam menggambarkan keindahan alam pantai.</p>
+                            </div>
+                            <div class="flex gap-3 bg-ocean-900/40 p-3 rounded-lg border border-ocean-400/10">
+                                <span class="font-bold text-ocean-400 text-base">3</span>
+                                <p class="text-sm text-slate-300 leading-relaxed">Menangkap makna kontekstual secara lisan/tulis dan mencocokkan kosakata baru langsung dengan objek 3D/AR interaktif.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KONTEN 2: URAIAN MATERI (Interaktif Kosakata) -->
+                    <div id="content-materi" class="tab-content hidden space-y-4">
+                        <div class="flex items-center justify-between text-sand-500 mb-1">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-file-invoice text-2xl"></i>
+                                <h2 class="text-lg font-bold">Descriptive Reading Text</h2>
+                            </div>
+                            <span class="text-xs bg-ocean-400/20 text-ocean-400 px-2 py-0.5 rounded font-bold">Interactive Reading</span>
+                        </div>
+                        <p class="text-xs text-slate-500 italic">Klik kata berwarna oranye untuk menampilkan arti dan penjelasan unsur bahasanya!</p>
+                        
+                        <!-- Box Teks Deskriptif -->
+                        <div class="bg-ocean-950/80 p-4 rounded-xl border border-ocean-400/10 shadow-inner space-y-3 text-slate-300 leading-relaxed text-sm">
+                            <h3 class="font-serif italic font-bold text-center text-white text-base tracking-wide border-b border-ocean-400/10 pb-2 mb-2">The Dreamland Beach</h3>
+                            
+                            <p>
+                                Dreamland is an incredibly stunning destination celebrated for its 
+                                <span class="vocab-highlight text-sand-500 font-bold border-b-2 border-dashed border-sand-500 hover:bg-sand-500/10 px-1 rounded cursor-pointer transition" onclick="showVocab('scenic', 'Scenic Tropical Beach', 'Noun Phrase: Pantai tropis yang indah pemandangannya (Scenic = pemandangan indah, Tropical = tropis, Beach = pantai).')">scenic tropical beach</span>. 
+                                It attracts visitors from across the globe who search for serene beauty.
+                            </p>
+                            
+                            <p>
+                                The long shoreline is covered with 
+                                <span class="vocab-highlight text-sand-500 font-bold border-b-2 border-dashed border-sand-500 hover:bg-sand-500/10 px-1 rounded cursor-pointer transition" onclick="showVocab('sand', 'Powdery White Sand', 'Noun Phrase: Pasir putih yang sangat halus seperti bubuk (Powdery = seperti bubuk/halus, White = putih, Sand = pasir).')">powdery white sand</span> 
+                                that remains cool even during the hot afternoon sun. Walking on it feels like stepping on soft velvet. Adjacent to the shore, the 
+                                <span class="vocab-highlight text-sand-500 font-bold border-b-2 border-dashed border-sand-500 hover:bg-sand-500/10 px-1 rounded cursor-pointer transition" onclick="showVocab('water', 'Crystal-Clear Turquoise Water', 'Noun Phrase: Air laut berwarna toska yang bening seperti kristal (Crystal-clear = bening kristal, Turquoise = toska, Water = air).')">crystal-clear turquoise water</span> 
+                                reveals a bustling underwater world.
+                            </p>
+                            
+                            <p>
+                                Tall, majestic 
+                                <span class="vocab-highlight text-sand-500 font-bold border-b-2 border-dashed border-sand-500 hover:bg-sand-500/10 px-1 rounded cursor-pointer transition" onclick="showVocab('tree', 'Coconut Palm Trees', 'Noun Phrase: Pohon kelapa (Coconut = kelapa, Palm = palem-paleman, Trees = pohon-pohon).')">coconut palm trees</span> 
+                                line the coast, swaying gracefully as they catch the refreshing sea breezes. Visitors can relax underneath their shade while enjoying the picturesque horizon.
+                            </p>
+                        </div>
+
+                        <!-- Box Panel Penjelasan Kosakata Dinamis -->
+                        <div id="vocab-panel" class="bg-ocean-900/60 border border-ocean-400/25 p-3 rounded-lg hidden transition duration-300">
+                            <div class="flex items-center justify-between text-xs text-ocean-400 font-bold uppercase mb-1">
+                                <span>Glosarium & Grammar</span>
+                                <button onclick="closeVocab()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <h4 id="vocab-title" class="text-sm font-extrabold text-white">Judul Kosakata</h4>
+                            <p id="vocab-desc" class="text-xs text-slate-300 mt-1 leading-relaxed">Deskripsi/Arti kata akan ditampilkan di sini.</p>
+                        </div>
+                    </div>
+
+                    <!-- KONTEN 3: EVALUASI (10 Soal Pilihan Ganda Interaktif) -->
+                    <div id="content-evaluasi" class="tab-content hidden space-y-4">
+                        
+                        <!-- Layar Mulai / Status Kuis -->
+                        <div id="quiz-intro" class="text-center py-6 space-y-3">
+                            <div class="w-16 h-16 bg-ocean-400/10 rounded-full flex items-center justify-center mx-auto text-ocean-400 text-3xl">
+                                <i class="fa-solid fa-circle-question"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-white">Evaluasi Kompetensi</h3>
+                                <p class="text-xs text-slate-400 mt-1">Uji pemahaman Anda melalui 10 soal pilihan ganda interaktif.</p>
+                            </div>
+                            <button onclick="startQuiz()" class="bg-gradient-to-r from-ocean-400 to-ocean-500 hover:from-ocean-500 hover:to-ocean-400 text-ocean-950 font-bold px-6 py-2 rounded-lg text-sm transition duration-300 shadow-md">
+                                Mulai Kuis Sekarang
+                            </button>
+                        </div>
+
+                        <!-- Area Permainan Kuis (Hidden by default) -->
+                        <div id="quiz-box" class="hidden space-y-3">
+                            <!-- Progress Bar -->
+                            <div class="flex items-center justify-between text-xs font-semibold text-slate-400">
+                                <span id="quiz-question-number">Soal 1 dari 10</span>
+                                <span id="quiz-score-display" class="text-sand-500">Skor: 0</span>
+                            </div>
+                            <div class="w-full bg-ocean-950 rounded-full h-1.5 border border-ocean-400/10 overflow-hidden">
+                                <div id="quiz-progress" class="bg-ocean-400 h-1.5 transition-all duration-300" style="width: 10%"></div>
+                            </div>
+
+                            <!-- Soal Teks -->
+                            <div class="bg-ocean-900/60 border border-ocean-400/10 p-3 rounded-lg">
+                                <p id="quiz-question-text" class="text-sm font-semibold text-white leading-relaxed">Pertanyaan akan muncul di sini?</p>
+                            </div>
+
+                            <!-- Pilihan Jawaban (A-E) -->
+                            <div class="space-y-1.5" id="quiz-options-container">
+                                <!-- Tombol Pilihan Diisi Otomatis Lewat JS -->
+                            </div>
+
+                            <!-- Navigasi Kuis -->
+                            <div class="flex justify-between items-center pt-1">
+                                <span id="feedback-text" class="text-xs font-bold transition duration-300"></span>
+                                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-ocean-800 text-slate-400 cursor-not-allowed font-bold px-4 py-1.5 rounded-lg text-xs transition duration-300">
+                                    Soal Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Layar Skor Akhir (Hidden by default) -->
+                        <div id="quiz-result" class="hidden text-center py-6 space-y-4">
+                            <div class="inline-block relative">
+                                <div class="w-20 h-20 bg-ocean-400/10 rounded-full flex items-center justify-center mx-auto text-sand-500 text-4xl">
+                                    <i class="fa-solid fa-trophy"></i>
+                                </div>
+                                <div class="absolute -top-1 -right-1 bg-green-500 w-6 h-6 rounded-full flex items-center justify-center text-[10px] text-ocean-950 font-bold border-2 border-ocean-900">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-white">Evaluasi Selesai!</h3>
+                                <p class="text-xs text-slate-400 mt-1">Nilai akhir Anda berdasarkan hasil pengerjaan soal:</p>
+                                <div id="final-score" class="text-4xl font-extrabold text-sand-500 mt-2">80</div>
+                            </div>
+                            <div class="text-xs text-slate-300 px-4 leading-relaxed" id="result-message">
+                                Kerja bagus! Anda memiliki pemahaman yang baik tentang Descriptive Text.
+                            </div>
+                            <button onclick="startQuiz()" class="bg-ocean-800 hover:bg-ocean-400 hover:text-ocean-950 text-slate-200 font-bold px-5 py-2 rounded-lg text-xs transition duration-300">
+                                <i class="fa-solid fa-rotate-left mr-1"></i> Coba Lagi
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Footer Penyusun Mini -->
+                <footer class="p-3 bg-ocean-950/40 border-t border-ocean-400/10 flex items-center justify-between text-[10px] text-slate-500">
+                    <span>Sistem Interaktif V1.2</span>
+                    <span>© SMAN 1 Mempawah Hilir</span>
+                </footer>
+            </section>
+
+            <!-- SISI KANAN: PANEL SIMULASI 3D / AR ASSEMBLR EDU (58%) -->
+            <!-- Layout ini dibuat kokoh untuk menampilkan media interaktif 3D Assemblr -->
+            <section class="w-[58%] h-full flex flex-col bg-ocean-950 relative overflow-hidden">
+                
+                <!-- Header Panel Simulasi (Sesuai Desain Vulkanisme di image_3f244f.jpg) -->
+                <div class="h-12 bg-ocean-950/90 border-b border-ocean-400/20 px-4 flex items-center justify-between z-10">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-red-500 pulse-live block"></span>
+                        <span class="text-xs font-bold text-slate-200 uppercase tracking-wider">LAB 3D INTERAKTIF ASSEMBLR EDU</span>
+                    </div>
+                    <div class="bg-sand-500/10 text-sand-500 text-[10px] font-bold px-2.5 py-1 rounded border border-sand-500/20 tracking-wider">
+                        <i class="fa-solid fa-mobile-screen-button mr-1"></i> AR READY
+                    </div>
+                </div>
+
+                <!-- Kontainer Iframe Assemblr (Terpampang Penuh) -->
+                <div class="flex-1 w-full bg-slate-900 relative">
+                    <!-- Area Kosong yang kini telah diisi IFrame Assemblr Sesuai Permintaan Ibu Yuli -->
+                    <iframe src='https://viewer.assemblrworld.com/Embed/-Ldh84SZJdS24kiPVKZR' 
+                            allow="camera; microphone; gyroscope; accelerometer; magnetometer; xr-spatial-tracking; fullscreen" 
+                            allowFullScreen
+                            class="w-full h-full border-none z-10 relative">
+                    </iframe>
+                </div>
+
+                <!-- Bar Instruksi Bawah -->
+                <div class="h-10 bg-ocean-950/90 border-t border-ocean-400/20 px-4 flex items-center justify-between text-xs text-slate-400">
+                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-info text-ocean-400"></i> Gunakan Mouse / Sentuhan jari untuk memutar, menggeser, dan zoom objek 3D.</span>
+                    <span class="text-[10px] text-ocean-400 font-semibold bg-ocean-400/10 px-2 py-0.5 rounded">Assemblr Web Viewer</span>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- AUDIO SYNTHESIS UNTUK EFFECT SUARA INTERAKTIF -->
+    <script>
+        // Membuat nada suara sintesis menggunakan Web Audio API tanpa perlu file audio external
+        let audioCtx;
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSound(type) {
+            try {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.1);
+                } else if (type === 'success') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.4);
+                } else if (type === 'error') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.25);
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                }
+            } catch (e) {
+                console.log("Audio not supported or interaction required first.");
+            }
+        }
+    </script>
+
+    <!-- LOGIKA INTERAKTIF (JAVASCRIPT UTAMA) -->
+    <script>
+        // 1. NAVIGASI TAB
+        function switchTab(tabId) {
+            playSound('click');
+            // Sembunyikan semua konten
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            // Tampilkan konten aktif
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+
+            // Set styling tombol tab
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn py-2 px-3 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition duration-300 text-slate-400 hover:text-white hover:bg-ocean-800/40";
+            });
+
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.className = "tab-btn py-2 px-3 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition duration-300 bg-ocean-400 text-ocean-950 shadow-lg shadow-ocean-400/10";
+        }
+
+        // 2. KOSAKATA MATERI INTERAKTIF
+        function showVocab(id, word, desc) {
+            playSound('click');
+            const panel = document.getElementById('vocab-panel');
+            const title = document.getElementById('vocab-title');
+            const description = document.getElementById('vocab-desc');
+
+            title.innerText = word;
+            description.innerText = desc;
+            panel.classList.remove('hidden');
+        }
+
+        function closeVocab() {
+            playSound('click');
+            document.getElementById('vocab-panel').classList.add('hidden');
+        }
+
+        // 3. SISTEM EVALUASI 10 SOAL PG
+        const questions = [
+            {
+                q: "What is the primary communicative purpose of the descriptive text above?",
+                options: [
+                    "To persuade people to build modern beach hotels",
+                    "To describe the specific scenic beauty of Dreamland Beach",
+                    "To explain how islands and ocean sand are formed",
+                    "To report a news story about a sea rescue",
+                    "To entertain readers with a local legend about a beach mermaid"
+                ],
+                correct: 1
+            },
+            {
+                q: "What type of sand is found on the shoreline and how does it feel?",
+                options: [
+                    "Coarse gray sand that feels hot and painful",
+                    "Golden clay sand that is slippery to walk on",
+                    "Muddy green sand that is very wet",
+                    "Powdery white sand that feels soft and cool",
+                    "Sharp volcanic sand mixed with shells"
+                ],
+                correct: 3
+            },
+            {
+                q: "Based on the text, what can we see through the crystal-clear water?",
+                options: [
+                    "Only giant ocean waves and sharks",
+                    "Deep historical ocean caves",
+                    "Sunken pirate treasures",
+                    "A bustling underwater world with corals and tropical fish",
+                    "Fallen coconut leaves floating around"
+                ],
+                // 4th option is index 3
+                correct: 3
+            },
+            {
+                q: "What does the text say about coconut palm trees?",
+                options: [
+                    "They are short, brown shrubs along the hills",
+                    "They sway gracefully and provide shade to relax under",
+                    "They produce toxic fruits that tourists avoid",
+                    "They are artificially made from plastic to attract guests",
+                    "They only grow during winter times"
+                ],
+                correct: 1
+            },
+            {
+                q: "The word 'scenic' is closest in meaning to...",
+                options: [
+                    "Boring",
+                    "Picturesque/Beautiful",
+                    "Expensive",
+                    "Noisy",
+                    "Distant"
+                ],
+                correct: 1
+            },
+            {
+                q: "What is the synonym of the word 'crystal-clear' used in the reading text?",
+                options: [
+                    "Opaque",
+                    "Dirty",
+                    "Transparent",
+                    "Frozen",
+                    "Turbid"
+                ],
+                correct: 2
+            },
+            {
+                q: "Which word class is the word 'majestic' in the phrase 'majestic coconut palm trees'?",
+                options: [
+                    "Noun",
+                    "Verb",
+                    "Preposition",
+                    "Adjective",
+                    "Adverb"
+                ],
+                correct: 3
+            },
+            {
+                q: "Which of the following is an example of a 'Noun Phrase' found in paragraph 2?",
+                options: [
+                    "Stepping on",
+                    "Bustling underwater",
+                    "Powdery white sand",
+                    "Walking on it",
+                    "Remains cool"
+                ],
+                correct: 2
+            },
+            {
+                q: "What synonym is appropriate for the word 'serene' in paragraph 1?",
+                options: [
+                    "Peaceful and quiet",
+                    "Loud and crowded",
+                    "Very dangerous",
+                    "Exotic and wild",
+                    "Cold and windy"
+                ],
+                correct: 0
+            },
+            {
+                q: "The word 'it' in sentence 'Walking on it feels like stepping...' refers to...",
+                options: [
+                    "The water",
+                    "The hot sun",
+                    "The powdery white sand",
+                    "The coconut tree",
+                    "The shoreline"
+                ],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        function startQuiz() {
+            playSound('click');
+            currentQuestion = 0;
+            score = 0;
+            answered = false;
+            
+            document.getElementById('quiz-intro').classList.add('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-box').classList.remove('hidden');
+            
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            document.getElementById('feedback-text').innerText = "";
+            document.getElementById('next-btn').disabled = true;
+            document.getElementById('next-btn').className = "bg-ocean-800 text-slate-400 cursor-not-allowed font-bold px-4 py-1.5 rounded-lg text-xs transition duration-300";
+
+            // Atur Bar Progres & Skor
+            const progressPct = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('quiz-progress').style.width = `${progressPct}%`;
+            document.getElementById('quiz-question-number').innerText = `Soal ${currentQuestion + 1} dari ${questions.length}`;
+            document.getElementById('quiz-score-display').innerText = `Skor: ${score}`;
+
+            const qData = questions[currentQuestion];
+            document.getElementById('quiz-question-text').innerText = qData.q;
+
+            // Generate Opsi Jawaban (A - E)
+            const optionsContainer = document.getElementById('quiz-options-container');
+            optionsContainer.innerHTML = "";
+
+            const optPrefix = ['A', 'B', 'C', 'D', 'E'];
+
+            qData.options.forEach((optText, index) => {
+                const btn = document.createElement('button');
+                btn.className = "quiz-opt-btn w-full bg-ocean-950/60 hover:bg-ocean-800/40 border border-ocean-400/10 text-left p-2.5 rounded-lg text-xs transition duration-200 flex items-center gap-3 text-slate-300";
+                btn.onclick = () => selectOption(index);
+                btn.innerHTML = `
+                    <span class="opt-indicator w-6 h-6 rounded bg-ocean-900 border border-ocean-400/20 flex items-center justify-center font-bold text-[10px] text-ocean-400 flex-shrink-0">${optPrefix[index]}</span>
+                    <span class="opt-text">${optText}</span>
+                `;
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIndex) {
+            if (answered) return;
+            answered = true;
+
+            const qData = questions[currentQuestion];
+            const optButtons = document.querySelectorAll('.quiz-opt-btn');
+            const fbText = document.getElementById('feedback-text');
+
+            if (selectedIndex === qData.correct) {
+                // Jawaban Benar
+                playSound('success');
+                score += 10;
+                document.getElementById('quiz-score-display').innerText = `Skor: ${score}`;
+                
+                // Warnai Hijau
+                optButtons[selectedIndex].className = "quiz-opt-btn w-full bg-green-950/60 border border-green-500/50 text-left p-2.5 rounded-lg text-xs transition duration-200 flex items-center gap-3 text-green-300";
+                optButtons[selectedIndex].querySelector('.opt-indicator').className = "opt-indicator w-6 h-6 rounded bg-green-500 flex items-center justify-center font-bold text-[10px] text-ocean-950 flex-shrink-0";
+                
+                fbText.innerText = "Jawaban Anda Benar! (+10)";
+                fbText.className = "text-xs font-bold text-green-400 transition duration-300";
+            } else {
+                // Jawaban Salah
+                playSound('error');
+                
+                // Warnai Merah pada Pilihan yang Salah
+                optButtons[selectedIndex].className = "quiz-opt-btn w-full bg-red-950/60 border border-red-500/50 text-left p-2.5 rounded-lg text-xs transition duration-200 flex items-center gap-3 text-red-300";
+                optButtons[selectedIndex].querySelector('.opt-indicator').className = "opt-indicator w-6 h-6 rounded bg-red-500 flex items-center justify-center font-bold text-[10px] text-white flex-shrink-0";
+                
+                // Sorot Hijau pada Jawaban yang Benar
+                optButtons[qData.correct].className = "quiz-opt-btn w-full bg-green-950/60 border border-green-500/50 text-left p-2.5 rounded-lg text-xs transition duration-200 flex items-center gap-3 text-green-300";
+                optButtons[qData.correct].querySelector('.opt-indicator').className = "opt-indicator w-6 h-6 rounded bg-green-500 flex items-center justify-center font-bold text-[10px] text-ocean-950 flex-shrink-0";
+                
+                fbText.innerText = "Jawaban Kurang Tepat!";
+                fbText.className = "text-xs font-bold text-red-400 transition duration-300";
+            }
+
+            // Aktifkan tombol Next
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = false;
+            nextBtn.className = "bg-ocean-400 hover:bg-ocean-500 text-ocean-950 font-bold px-4 py-1.5 rounded-lg text-xs transition duration-300 cursor-pointer shadow-md";
+        }
+
+        function nextQuestion() {
+            playSound('click');
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz-box').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+
+            document.getElementById('final-score').innerText = score;
+
+            const rMsg = document.getElementById('result-message');
+            if (score >= 80) {
+                rMsg.innerText = "Sangat Luar Biasa! Anda menguasai struktur dan kosakata teks deskriptif pantai dengan sempurna.";
+                rMsg.className = "text-xs text-green-400 px-4 leading-relaxed";
+            } else if (score >= 60) {
+                rMsg.innerText = "Kerja Bagus! Anda memahami materi dasar dengan cukup baik. Teruskan belajar!";
+                rMsg.className = "text-xs text-sand-500 px-4 leading-relaxed";
+            } else {
+                rMsg.innerText = "Butuh latihan lagi. Coba amati model 3D di sisi kanan dengan seksama lalu ulangi kuisnya.";
+                rMsg.className = "text-xs text-red-400 px-4 leading-relaxed";
+            }
+        }
+    </script>
+</body>
+</html>
